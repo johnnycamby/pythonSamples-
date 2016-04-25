@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+    <div class="article row" style="border: 1px solid #aaaaaa; margin-bottom: 5px; padding: 5px; border-radius: 5px; background: #eaeaea; margin-left: 0; margin-right: -20px;">
+        <div class="title" style="font-size: 20px;  font-weight: bold; text-shadow: 2px 2px 4px #aaaaaa;">
+            <a href="{% url 'get_article' article_id=article.id %}">{{ article.title }}</a>
+        </div>
+        <div class="content">{{ article.body}}</div>
+    </div>
+
+    <div class="likes" style="font-size: 15px;  font-weight: bold; text-shadow: 2px 2px 4px #aaaaaa">
+        <a href="#">{{ article.likes }} liked</a> |  <a href="{% url 'create_comment' article_id=article.id  %}">add comment!</a>
+        {% if article.thumbnail %}
+            <img src="/static/{{ article.thumbnail }}" class="img-circle pull-right" width="20" height="20" />
+        {% endif %}
+    </div>
+
+    <h3>Commented!</h3>
+
+    {% for comment in article.comment_set.all %}
+    <div class="reply row" style="border: 1px solid #aaaaaa; margin-bottom: 5px; padding: 5px; border-radius: 5px; background: #eaeaea; margin-left: 0; margin-right: -20px;">
+        <div class="name" style="font-size: 15px;  font-weight: bold; text-shadow: 2px 2px 4px #aaaaaa">
+            {{ comment.name}}
+        <div class="content pull-right" style="font-size: 15px;  font-weight: bold; text-shadow: 2px 2px 4px #aaaaaa">{{ comment.comment_date}}</div>
+        </div>
+        <div class="content">{{ comment.body}}</div>
+
+    </div>
+
+    <div class="delete" style="font-size: 15px;  font-weight: bold; text-shadow: 2px 2px 4px #aaaaaa">
+
+                 <a href="{% url 'delete_comment' comment_id=comment.id%} ">Delete</a>
+
+    </div>
+     {% endfor %}
+
+
+{% endblock content %}
+
+

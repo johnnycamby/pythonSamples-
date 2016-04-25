@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Articles</h1>
+    <div class="row">
+
+    <!--
+     <div class="col-md-10">
+         <div class="input-group">
+             <input type="text" id="searchbox" class="form-control" placeholder="Search for...">
+             <span class="input-group-btn">
+                 <button class="btn btn-default" type="button">Go!</button>
+             </span>
+         </div>
+     </div> -->
+    <div class="col-md-10 ">
+            <form action="" class="search-form">
+                {% csrf_token %}
+                <div class="form-group has-feedback">
+            		<label for="search" class="sr-only">Search</label>
+            		<input type="text" class="form-control" name="search" id="search" placeholder="search...">
+              		<span class="glyphicon glyphicon-search form-control-feedback"></span>
+            	</div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+    <ul id="search-results"></ul>
+    </div>
+    <br/><br/>
+
+{% if articles.count > 0 %}
+
+    {% for article in articles %}
+
+        <div class="article row" style="border: 1px solid #aaaaaa; margin-bottom: 5px; padding: 5px; border-radius: 5px; background: #eaeaea; margin-left: 0; margin-right: -20px;">
+         <div class="title col-md-3" style="font-size: 20px;  font-weight: bold; text-shadow: 2px 2px 4px #aaaaaa;">
+             <a href="{% url 'get_article' article_id=article.id %}">{{ article.title }}</a>
+         </div>
+          <div class="content col-md-6">{{ article.body|lower|truncatewords:"10" }}</div>
+         <div class="date col-md-3" style="font-size: 15px;  font-weight: bold; text-shadow: 2px 2px 4px #aaaaaa">{{ article.pub_date }}</div>
+
+        </div>
+
+    {% endfor %}
+
+
+    {% else %}
+
+    <p>None to show!</p>
+
+{% endif %}
+
+    <br/>
+    <a href="{% url 'create_article' %}">Create a new Article</a>
+
+
+{% endblock content %}
+
+
+
+

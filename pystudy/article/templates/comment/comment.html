@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="well col-md-6">
+<fieldset>
+    <legend>
+        Create a Comment
+    </legend>
+    <div class="panel-body">
+        <form action="{% url 'create_comment' article_id=article.id %}" method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <p><input type="submit" class="btn btn-primary btn-sm" value="Go!"/></p>
+        </form>
+    </div>
+</fieldset>
+</div>
+{% endblock content %}

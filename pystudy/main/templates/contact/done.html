@@ -1,0 +1,11 @@
+
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <h2>Thanks for contacting us!</h2>
+    {% for form in form_data %}
+        {{ form|crispy }}
+    {% endfor %}
+
+{% endblock %}

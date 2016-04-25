@@ -1,0 +1,14 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class="jumbotron">
+<p>
+    Welcome to Django programming!
+</p>
+<p style="margin-top: 1em">
+    <a href="{% url 'pystudy_login' %}">Click here to login</a> or
+    <a href="{% url 'user_signup' %}">Click here to Sign up!</a>
+</p>
+</div>
+{% endblock content %}

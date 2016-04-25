@@ -1,0 +1,67 @@
+
+============= virtualevn activation ==============
+# cd /c/python34/Scripts/xcode
+#. Scripts/activate
+
+========= create a new start-project =====================
+# cd /d/Dev/python
+# django-admin.py startproject pystudy
+# cd pystudy
+# python manage.py runserver
+
+============ install crispy forms for better UI ===============================
+# pip install django-crispy-forms
+
+
+======== add  a new app to your already created application ==========================
+# cd /d/Dev/python/pystudy
+# python manage.py startapp user
+
+
+============= database management =======================
+# python manage.py shell   :: get the python shell
+>>> from article.models import Article
+>>> from django.utils import timezone
+>>> Article.objects.all()
+
+ ======== creating a new object(s) ========================
+>>> a = Article(title = "test 1", body = "blah testing1", pub_date=timezone.now(), likes = 0)
+>>> a = Article(title = "test 2", body = "blah testing2", pub_date=timezone.now(), likes = 0)
+>>> a = Article(title = "test 3", body = "blah testing3", pub_date=timezone.now(), likes = 0)
+>>> a
+>>> a.save()
+>>> a.id
+
+
+========= Named Groups in URLS =================================
+use named groups in expression to capture parts of the URL
+ => (?P<name>expr) == (?P<pk>\d+) this needs 1 or digit and call the group 'pk'
+data(pk) captured with Named-Groups is passed to a view as keyword arguments
+ => def some_view(request, pk) => this is a view that handles a lost url
+pass arguments to views using a url tag
+{% url 'game_accept' pk=inv.id %}
+
+
+============== Django Fat Models, Skiny Views =====================================
+- putting one's logic in the Model classes and keep the Views simple
+- It's a good practise
+  - DRY principle thus no repetitions of code
+  - Testing gets easier
+  - Readability
+=> e.g Reverse and get_absolute_url() defined on the models so that the model instance can return the url were it can be viewed
+
+   ========= implementation of get_absolute_url() on a Model =============
+   - provides a canonical url for a Model instance
+   - django picks up this url from many places like in the 'admin' user interface
+   - use django.core.urlresolvers.reverse
+     - get url fro a specific view
+     - works like {% url %} template tag
+     - Pass it arguments: reverse('someview', args=[4])
+
+
+
+ '''
+                        url(r'^accouts/auth/$','pystudy.views.auth_view'),
+                        url(r'^accouts/loggedin/$','pystudy.views.loggedin'),
+                        url(r'^accouts/invalid/$','pystudy.views.invalid_login'),
+                        '''

@@ -1,0 +1,55 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}
+      Django Study ::-
+    {% endblock title %}</title>
+     {% block styling %}
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/app.css' %}">
+    {% endblock styling %}
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+    <div class="container">
+         <a class="navbar-brand" href="{% url 'main_home' %}">Xplicit ::-</a>
+         <div class="nav-header">
+             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                 <span class="sr-only">Toggle navigation</span>
+                 <span class="icon-bar"></span>
+                 <span class="icon-bar"></span>
+                 <span class="icon-bar"></span>
+             </button>
+         </div>
+         <div class="navbar-collapse collapse">
+             <ul class="nav navbar-nav">
+                 <li><a href="#">#</a></li>
+                 <li><a href="#">#</a></li>
+                 <li><a href="/admin/">Admin</a></li>
+                 {% if user.is_authenticated %}
+                    <li><a href="{% url 'user_logout' %}">Logout</a></li>
+                 {% else %}
+                     <li><a href="{% url 'user_login' %}">Login</a></li>
+                 {% endif %}
+             </ul>
+         </div>
+     </div>
+</nav>
+
+<div class="container">
+    {% block content %}
+
+    {% endblock content %}
+</div>
+
+
+{% block javascript %}
+    <script type="text/javascript" src="{% static 'admin/js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+{% endblock javascript %}
+</body>
+</html>
